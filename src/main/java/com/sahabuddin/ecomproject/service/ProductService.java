@@ -36,4 +36,19 @@ public class ProductService {
     public Product addProductWithoutImage(Product product) {
         return productRepository.save(product);
     }
+
+    public Product updateProduct(Long id, Product product, MultipartFile imageFile) throws IOException {
+        product.setImageName(imageFile.getOriginalFilename());
+        product.setImageType(imageFile.getContentType());
+        product.setImageData(imageFile.getBytes());
+        return productRepository.save(product);
+    }
+
+    public void deleteProduct(Product product) {
+        productRepository.delete(product);
+    }
+
+    public List<Product> searchProduct(String keyword) {
+        return productRepository.searchProducts(keyword);
+    }
 }
